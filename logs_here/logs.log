@@ -1,5 +1,6 @@
-2025-02-18 10:59:33,737 INFO set_logging_settings Были добавлены настройки конфигурации logging.
-2025-02-18 10:59:33,738 INFO get_headers_for_request Создана хэш-таблица с заголовками для парсинга.
-2025-02-18 10:59:34,437 INFO retrieve_request_text Кодировка файла: utf-8
-2025-02-18 10:59:34,437 INFO retrieve_request_text Получен html-text с сайта, передаем в write_parsed_text_in_file()
-2025-02-18 10:59:34,515 INFO write_parsed_text_in_file Текст был добавлен в файл по пути txt_here\main_html_text.txt, заняло: 0.078125 времени.
+2025-02-18 21:44:59,831 INFO set_logging_settings Были добавлены настройки конфигурации logging.
+2025-02-18 21:44:59,832 INFO get_headers_for_request Создана хэш-таблица с заголовками для парсинга.
+2025-02-18 21:44:59,988 INFO retrieve_request_text Кодировка файла: UTF-8
+2025-02-18 21:44:59,988 INFO retrieve_request_text Получен html-text с сайта, передаем в write_parsed_text_in_file()
+2025-02-18 21:45:00,023 INFO write_parsed_text_in_file Текст был добавлен в файл по пути txt_here\main_html_text.txt, заняло: 0.03125 времени.
+2025-02-18 21:45:00,171 INFO count_of_vacancies Вакансии еще нет.

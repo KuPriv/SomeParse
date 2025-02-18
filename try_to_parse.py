@@ -1,3 +1,6 @@
+import sys
+import time
+
 import requests
 
 import logging
@@ -17,8 +20,9 @@ def set_logging_settings():
 
 
 def retrieve_request_text() -> str:
-    req = requests.get("https://prodoctorov.ru/krasnodar/vrach/", get_headers_for_request())
+    req = requests.get("https://rabota.medrocket.ru/student", get_headers_for_request())
     src = req.text
+
 
     file_encoding: str = req.encoding
     logging.info(f"Кодировка файла: {file_encoding}")
@@ -61,9 +65,39 @@ def write_parsed_text_in_file(src: str, file_encoding: str) -> None:
     logging.info(f"Текст был добавлен в файл по пути {my_file}, заняло: {end - start} времени.")
 
 
+def count_of_vacancies():
+    # vacancy - взял условно за одну вакансию, нашел одну строку совпадение в txt = одна вакансия
+    vacancy: list[str] = ['Backend', 'Django']
+    stop_point: str = "Выберите"
+
+    with open('txt_here/main_html_text.txt', mode='r', encoding='utf-8') as file:
+        for line in file:
+            one_string_in_file: str = line
+            if vacancy[0] in one_string_in_file or vacancy[1] in one_string_in_file:
+                write_status_indicator()
+                logging.info(f'Была найдена вакансия. Записали индикатор \'1\' в file в  dir: tg_bot')
+
+            if stop_point in one_string_in_file:
+                break
+
+    logging.info(f'Вакансии еще нет.')
+
+
+def write_status_indicator() -> None:
+    # Написать 1 в файл, чтобы асинхронная функция из aiogram считала
+    path: str = os.getcwd() + r'\tg_bot\status_indicator.txt'
+    with open(path, mode='w+', encoding='utf-8') as file:
+        file.write('1')
+        sys.exit()
+
+
 def main():
     set_logging_settings()
-    retrieve_request_text()
+    while True:
+        retrieve_request_text()
+        count_of_vacancies()
+        time.sleep(1200)
+
 
 if __name__ == "__main__":
     main()
