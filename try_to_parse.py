@@ -47,7 +47,6 @@ def get_headers_for_request() -> dict[str, str]:
 
 def write_parsed_text_in_file(response: requests.Response) -> None:
     start = process_time()
-    requests.post()
     src = response.text
     file_encoding: str = response.encoding
 
