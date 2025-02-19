@@ -21,10 +21,14 @@ def set_logging_settings() -> None:
 
 
 def retrieve_response_from_site() -> None:
-    response = requests.get("https://rabota.medrocket.ru/student", get_headers_for_request())
+    response = requests.get(url=get_path(), headers=get_headers_for_request())
 
     logging.info(f"Получен ответ с сайте. {response.status_code}")
     write_parsed_text_in_file(response)
+
+
+def get_path() -> str:
+    return "https://rabota.medrocket.ru/student"
 
 
 def get_headers_for_request() -> dict[str, str]:
@@ -43,7 +47,7 @@ def get_headers_for_request() -> dict[str, str]:
 
 def write_parsed_text_in_file(response: requests.Response) -> None:
     start = process_time()
-
+    requests.post()
     src = response.text
     file_encoding: str = response.encoding
 
