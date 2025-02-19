@@ -2,7 +2,8 @@ import asyncio
 import logging
 import sys
 
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, types
+from aiogram.filters import Command
 
 from config_bot import token, my_id
 
@@ -29,6 +30,11 @@ async def check_file():
 
 async def send_message():
     await bot.send_message(chat_id=my_id, text='Пора проверить МедРокет!')
+
+
+@dp.message(Command('check'))
+async def check_work(message: types.Message):
+    await bot.send_message(chat_id=my_id, text='Подход, подход, еще подход.')
 
 
 async def main():
