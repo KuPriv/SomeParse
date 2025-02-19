@@ -9,7 +9,7 @@ import os
 from time import process_time
 
 
-def set_logging_settings():
+def set_logging_settings() -> None:
     log_dir = 'logs_here'
     os.makedirs(log_dir, exist_ok=True)
     log_file = os.path.join(log_dir, 'logs.log')
@@ -20,18 +20,11 @@ def set_logging_settings():
     logging.info("Были добавлены настройки конфигурации logging.")
 
 
-def retrieve_request_text() -> str:
-    req = requests.get("https://rabota.medrocket.ru/student", get_headers_for_request())
-    src = req.text
+def retrieve_response_from_site() -> None:
+    response = requests.get("https://rabota.medrocket.ru/student", get_headers_for_request())
 
-
-    file_encoding: str = req.encoding
-    logging.info(f"Кодировка файла: {file_encoding}")
-
-    logging.info("Получен html-text с сайта, передаем в write_parsed_text_in_file()")
-
-    write_parsed_text_in_file(src, file_encoding)
-    return src
+    logging.info(f"Получен ответ с сайте. {response.status_code}")
+    write_parsed_text_in_file(response)
 
 
 def get_headers_for_request() -> dict[str, str]:
@@ -48,8 +41,13 @@ def get_headers_for_request() -> dict[str, str]:
     return headers
 
 
-def write_parsed_text_in_file(src: str, file_encoding: str) -> None:
+def write_parsed_text_in_file(response: requests.Response) -> None:
     start = process_time()
+
+    src = response.text
+    file_encoding: str = response.encoding
+
+    logging.info(f"Кодировка файла: {file_encoding}")
 
     file_dir = 'txt_here'
     os.makedirs(file_dir, exist_ok=True)
@@ -106,7 +104,7 @@ def write_status_indicator() -> None:
 def main():
     set_logging_settings()
     while True:
-        retrieve_request_text()
+        retrieve_response_from_site()
         count_of_vacancies()
         r = random.randint(1, 61)
         time.sleep(1178 + r)
