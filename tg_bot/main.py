@@ -11,10 +11,6 @@ bot = Bot(token=token)
 dp = Dispatcher()
 
 
-async def send_message():
-    await bot.send_message(chat_id=my_id, text='Пора проверить МедРокет!')
-
-
 async def check_file():
     while True:
         try:
@@ -27,7 +23,12 @@ async def check_file():
             logging.info("Отправили сообщение.")
             await send_message()
             sys.exit()
+
         await asyncio.sleep(10)
+
+
+async def send_message():
+    await bot.send_message(chat_id=my_id, text='Пора проверить МедРокет!')
 
 
 async def main():

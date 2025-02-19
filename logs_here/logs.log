@@ -1,6 +1,11 @@
-2025-02-18 21:44:59,831 INFO set_logging_settings Были добавлены настройки конфигурации logging.
-2025-02-18 21:44:59,832 INFO get_headers_for_request Создана хэш-таблица с заголовками для парсинга.
-2025-02-18 21:44:59,988 INFO retrieve_request_text Кодировка файла: UTF-8
-2025-02-18 21:44:59,988 INFO retrieve_request_text Получен html-text с сайта, передаем в write_parsed_text_in_file()
-2025-02-18 21:45:00,023 INFO write_parsed_text_in_file Текст был добавлен в файл по пути txt_here\main_html_text.txt, заняло: 0.03125 времени.
-2025-02-18 21:45:00,171 INFO count_of_vacancies Вакансии еще нет.
+2025-02-19 07:48:20,377 INFO set_logging_settings Были добавлены настройки конфигурации logging.
+2025-02-19 07:48:20,377 INFO get_headers_for_request Создана хэш-таблица с заголовками для парсинга.
+2025-02-19 07:48:20,636 INFO retrieve_request_text Кодировка файла: UTF-8
+2025-02-19 07:48:20,637 INFO retrieve_request_text Получен html-text с сайта, передаем в write_parsed_text_in_file()
+2025-02-19 07:48:20,671 INFO write_parsed_text_in_file Текст был добавлен в файл по пути txt_here\main_html_text.txt, заняло: 0.03125 времени.
+2025-02-19 07:48:20,842 INFO count_of_vacancies Вакансии еще нет.
+2025-02-19 08:08:21,783 INFO get_headers_for_request Создана хэш-таблица с заголовками для парсинга.
+2025-02-19 08:08:22,068 INFO retrieve_request_text Кодировка файла: UTF-8
+2025-02-19 08:08:22,068 INFO retrieve_request_text Получен html-text с сайта, передаем в write_parsed_text_in_file()
+2025-02-19 08:08:22,102 INFO write_parsed_text_in_file Текст был добавлен в файл по пути txt_here\main_html_text.txt, заняло: 0.046875 времени.
+2025-02-19 08:08:22,277 INFO count_of_vacancies Вакансии еще нет.
