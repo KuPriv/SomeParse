@@ -70,20 +70,15 @@ def count_of_vacancies():
     vacancy: list[str] = ['Backend', 'Django']
     stop_point: str = "Выберите"
 
-    try:
-        with open('txt_here/main_html_text.txt', mode='r', encoding='utf-8') as file:
-            for line in file:
-                one_string_in_file: str = line
-                if vacancy[0] in one_string_in_file or vacancy[1] in one_string_in_file:
-                    write_status_indicator()
-                    logging.info(f'Была найдена вакансия. Записали индикатор \'1\' в file в  dir: tg_bot')
+    with open('txt_here/main_html_text.txt', mode='r', encoding='utf-8') as file:
+        for line in file:
+            one_string_in_file: str = line
+            if vacancy[0] in one_string_in_file or vacancy[1] in one_string_in_file:
+                write_status_indicator()
+                logging.info(f'Была найдена вакансия. Записали индикатор \'1\' в file в  dir: tg_bot')
 
-                if stop_point in one_string_in_file:
-                    break
-    except FileNotFoundError:
-        logging.warning("Файл не существует.", exc_info=None)
-    except Exception as e:
-        logging.warning(f"Ошибка: {e}")
+            if stop_point in one_string_in_file:
+                break
 
     logging.info(f'Вакансии еще нет.')
 
@@ -96,7 +91,7 @@ def write_status_indicator() -> None:
             file.write('1')
             sys.exit()
     except FileNotFoundError:
-        logging.warning("Файл не существует.", exc_info=None)
+        logging.warning("Файл не создан.", exc_info=None)
     except Exception as e:
         logging.warning(f"Ошибка: {e}")
 
