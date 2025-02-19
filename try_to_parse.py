@@ -60,6 +60,8 @@ def write_parsed_text_in_file(src: str, file_encoding: str) -> None:
             file.writelines(src)
     except FileNotFoundError:
         logging.warning("Не удалось создать файл.", exc_info=None)
+    except Exception as e:
+        logging.warning(f"Ошибка: {e}")
 
     end = process_time()
     logging.info(f"Текст был добавлен в файл по пути {my_file}, заняло: {end - start} времени.")
@@ -81,7 +83,9 @@ def count_of_vacancies():
                 if stop_point in one_string_in_file:
                     break
     except FileNotFoundError:
-        logging.warning("Файла нет в системе.", exc_info=None)
+        logging.warning("Файл не существует.", exc_info=None)
+    except Exception as e:
+        logging.warning(f"Ошибка: {e}")
 
     logging.info(f'Вакансии еще нет.')
 
@@ -94,7 +98,9 @@ def write_status_indicator() -> None:
             file.write('1')
             sys.exit()
     except FileNotFoundError:
-        logging.warning("Не удалось записать '1' в файл.", exc_info=None)
+        logging.warning("Файл не существует.", exc_info=None)
+    except Exception as e:
+        logging.warning(f"Ошибка: {e}")
 
 
 def main():
