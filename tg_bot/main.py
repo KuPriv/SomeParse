@@ -17,8 +17,8 @@ async def check_file():
         try:
             with open('status_indicator.txt', mode='r', encoding='utf-8') as file:
                 check = file.read().strip()
-        except:
-            ...
+        except Exception as e:
+            logging.info(f"Ошибка: {e}", exc_info=None)
 
         if check == '1':
             logging.info("Отправили сообщение.")
