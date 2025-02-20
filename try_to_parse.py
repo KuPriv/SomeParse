@@ -50,7 +50,7 @@ def get_headers_for_request() -> dict[str, str]:
     return headers
 
 
-def write_parsed_text_in_file(response: requests.Response)\
+def write_parsed_text_in_file(response: requests.Response) \
         -> None:
     start = process_time()
     src = response.text
@@ -85,11 +85,12 @@ def count_of_vacancies():
     vacancy: list[str] = ['Backend', 'Django', 'Python']
     stop_point: str = "Выберите"
 
-    with open('txt_here/main_html_text.txt', mode='r',
-              encoding='utf-8') as file:
+    with (open('txt_here/main_html_text.txt', mode='r',
+              encoding='utf-8') as file):
         for line in file:
             one_string_in_file: str = line
-            if vacancy[0] in one_string_in_file or vacancy[1] in one_string_in_file:
+            if vacancy[0] in one_string_in_file or vacancy[1] \
+                in one_string_in_file:
                 write_status_indicator()
                 logging.info(f'Была найдена вакансия. '
                              f'Записали индикатор \'1\' в file в'
