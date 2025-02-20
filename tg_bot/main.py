@@ -15,7 +15,8 @@ dp = Dispatcher()
 async def check_file():
     while True:
         try:
-            with open('status_indicator.txt', mode='r', encoding='utf-8') as file:
+            with (open('status_indicator.txt', mode='r', encoding='utf-8')
+                  as file):
                 check = file.read().strip()
         except Exception as e:
             logging.info(f"Ошибка: {e}", exc_info=None)
