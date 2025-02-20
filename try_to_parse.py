@@ -70,7 +70,7 @@ def write_parsed_text_in_file(response: requests.Response) -> None:
 
 def count_of_vacancies():
     # vacancy - взял условно за одну вакансию, нашел одну строку совпадение в txt = одна вакансия
-    vacancy: list[str] = ['Backend', 'Django']
+    vacancy: list[str] = ['Backend', 'Django', 'Python']
     stop_point: str = "Выберите"
 
     with open('txt_here/main_html_text.txt', mode='r', encoding='utf-8') as file:
