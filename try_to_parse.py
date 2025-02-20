@@ -23,7 +23,7 @@ def set_logging_settings() -> None:
 def retrieve_response_from_site() -> None:
     response = requests.get(url=get_path(), headers=get_headers_for_request())
 
-    logging.info(f"Получен ответ с сайте. {response.status_code}")
+    logging.info(f"Получен ответ с сайта. {response.status_code}")
     write_parsed_text_in_file(response)
 
 
@@ -41,7 +41,7 @@ def get_headers_for_request() -> dict[str, str]:
         "Accept": st_accept,
     }
 
-    logging.info("Создана хэш-таблица с заголовками для парсинга.")
+    logging.info("Создан словарь с заголовками для парсинга.")
     return headers
 
 
