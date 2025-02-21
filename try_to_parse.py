@@ -89,8 +89,7 @@ def count_of_vacancies():
               encoding='utf-8') as file):
         for line in file:
             one_string_in_file: str = line
-            if vacancy[0] in one_string_in_file or vacancy[1] \
-                in one_string_in_file:
+            if any(item in one_string_in_file for item in vacancy):
                 write_status_indicator()
                 logging.info(f'Была найдена вакансия. '
                              f'Записали индикатор \'1\' в file в'
