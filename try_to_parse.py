@@ -1,12 +1,12 @@
 import random
 import sys
 import time
+import os
+import logging
 
 import requests
-
-import logging
-import os
-from time import process_time
+from requests import Response
+from bs4 import BeautifulSoup, ResultSet, PageElement, Tag, NavigableString
 
 
 def set_logging_settings() -> None:
@@ -22,12 +22,24 @@ def set_logging_settings() -> None:
     logging.info("Были добавлены настройки конфигурации logging.")
 
 
-def retrieve_response_from_site() -> None:
+def check_vacancies() -> None:
+    vacancy: list[str] = ['Backend', 'Django', 'Python']
+    response = retrieve_response_from_site()
+    line = get_html_with_vacancies(response)
+
+    for item in line:
+        if any(keyw in item.text for keyw in vacancy):
+            logging.info(f'Была найдена вакансия: {item.text}')
+            write_status_indicator(item.text)
+
+    logging.info(f'Вакансии еще нет.')
+
+
+def retrieve_response_from_site() -> Response:
     response = requests.get(url=get_path(),
                             headers=get_headers_for_request())
-
     logging.info(f"Получен ответ с сайта. {response.status_code}")
-    write_parsed_text_in_file(response)
+    return response
 
 
 def get_path() -> str:
@@ -46,70 +58,24 @@ def get_headers_for_request() -> dict[str, str]:
         "Accept": st_accept,
     }
 
-    logging.info("Создан словарь с заголовками для парсинга.")
+    logging.info("Создана хэш-таблица с заголовками для парсинга.")
     return headers
 
 
-def write_parsed_text_in_file(response: requests.Response) \
-        -> None:
-    start = process_time()
-    src = response.text
-    file_encoding: str = response.encoding
-
-    logging.info(f"Кодировка файла: {file_encoding}")
-
-    file_dir = 'txt_here'
-    os.makedirs(file_dir, exist_ok=True)
-    my_file = os.path.join(file_dir, 'main_html_text.txt')
-
-    try:
-        with (open(my_file, mode="w+", encoding=file_encoding)
-              as file):
-            file.writelines(src)
-    except FileNotFoundError:
-        logging.warning("Не удалось создать файл.",
-                        exc_info=None)
-    except Exception as e:
-        logging.warning(f"Ошибка: {e}")
-
-    end = process_time()
-    logging.info(f"Текст был добавлен в файл по пути" + \
-                 f" {my_file}, заняло: {end - start} времени.")
+def get_html_with_vacancies(response: requests.Response) -> ResultSet[PageElement | Tag | NavigableString]:
+    soup = BeautifulSoup(response.text, 'html.parser')
+    return soup.find_all("div", class_="t1025__title t-name t-name_md js-product-name")
 
 
-def count_of_vacancies():
-    """
-    vacancy - взял условно за одну вакансию, нашел одну строку
-    совпадение в txt = одна вакансия
-    """
-    vacancy: list[str] = ['Backend', 'Django', 'Python']
-    stop_point: str = "Выберите"
-
-    with (open('txt_here/main_html_text.txt', mode='r',
-              encoding='utf-8') as file):
-        for line in file:
-            one_string_in_file: str = line
-            if any(item in one_string_in_file for item in vacancy):
-                write_status_indicator()
-                logging.info(f'Была найдена вакансия. '
-                             f'Записали индикатор \'1\' в file в'
-                             f'  dir: tg_bot')
-
-            if stop_point in one_string_in_file:
-                break
-
-    logging.info(f'Вакансии еще нет.')
-
-
-def write_status_indicator() -> None:
+def write_status_indicator(s: str) -> None:
     # Записать '1' в status_indicator.txt
     path: str = os.getcwd() + r'\tg_bot\status_indicator.txt'
     try:
         with open(path, mode='w+', encoding='utf-8') as file:
-            file.write('1')
+            file.write(f'{s[1:-1]}')
+            logging.info(f'Записали индикатор \'1\' и вакансию '
+                         f'в file в dir: tg_bot')
             sys.exit()
-    except FileNotFoundError:
-        logging.warning("Файл не создан.", exc_info=None)
     except Exception as e:
         logging.warning(f"Ошибка: {e}")
 
@@ -117,10 +83,9 @@ def write_status_indicator() -> None:
 def main():
     set_logging_settings()
     while True:
-        retrieve_response_from_site()
-        count_of_vacancies()
+        check_vacancies()
         r = random.randint(1, 61)
-        time.sleep(1178 + r)
+        time.sleep(900 + r)
 
 
 if __name__ == "__main__":
