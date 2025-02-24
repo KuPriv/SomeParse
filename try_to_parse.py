@@ -32,6 +32,7 @@ def check_vacancies() -> None:
             logging.info(f'Была найдена вакансия: {item.text}')
             write_status_indicator(item.text)
 
+
     logging.info(f'Вакансии еще нет.')
 
 
@@ -68,20 +69,27 @@ def get_html_with_vacancies(response: requests.Response) -> ResultSet[PageElemen
 
 
 def write_status_indicator(s: str) -> None:
-    # Записать '1' в status_indicator.txt
-    path: str = os.getcwd() + r'\tg_bot\status_indicator.txt'
     try:
-        with open(path, mode='w+', encoding='utf-8') as file:
+        with open(path_for_status_indicator(), mode='w+', encoding='utf-8') as file:
             file.write(f'{s[1:-1]}')
-            logging.info(f'Записали индикатор \'1\' и вакансию '
-                         f'в file в dir: tg_bot')
+            logging.info(f'Записали вакансию в file в dir: tg_bot')
             sys.exit()
     except Exception as e:
         logging.warning(f"Ошибка: {e}")
 
 
+def clean_status_indicator() -> None:
+    with open(path_for_status_indicator(), mode='w', encoding='utf-8'):
+        pass
+
+
+def path_for_status_indicator() -> str:
+    return os.getcwd() + r'\tg_bot\status_indicator.txt'
+
+
 def main():
     set_logging_settings()
+    clean_status_indicator()
     while True:
         check_vacancies()
         r = random.randint(1, 61)
