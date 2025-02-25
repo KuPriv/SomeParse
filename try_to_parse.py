@@ -69,14 +69,10 @@ def get_html_with_vacancies(response: requests.Response) -> ResultSet[PageElemen
 
 
 def write_status_indicator(s: str) -> None:
-    try:
-        with open(path_for_status_indicator(), mode='w+', encoding='utf-8') as file:
-            file.write(f'{s[1:-1]}')
-            logging.info(f'Записали вакансию в file в dir: tg_bot')
-            sys.exit()
-    except Exception as e:
-        logging.warning(f"Ошибка: {e}")
-
+    with open(path_for_status_indicator(), mode='w+', encoding='utf-8') as file:
+        file.write(f'{s[1:-1]}')
+        logging.info(f'Записали вакансию в file в dir: tg_bot')
+        sys.exit()
 
 def clean_status_indicator() -> None:
     with open(path_for_status_indicator(), mode='w', encoding='utf-8'):
