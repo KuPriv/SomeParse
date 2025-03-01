@@ -23,7 +23,7 @@ def set_logging_settings() -> None:
 
 
 def check_vacancies() -> None:
-    vacancy: list[str] = ['Backend', 'Django', 'Python']
+    vacancy = ('Backend', 'Django', 'Python')
     response = retrieve_response_from_site()
     line = get_html_with_vacancies(response)
 
@@ -86,10 +86,7 @@ def path_for_status_indicator() -> str:
 def main():
     set_logging_settings()
     clean_status_indicator()
-    while True:
-        check_vacancies()
-        r = random.randint(1, 61)
-        time.sleep(900 + r)
+    check_vacancies()
 
 
 if __name__ == "__main__":
