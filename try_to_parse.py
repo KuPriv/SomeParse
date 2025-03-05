@@ -48,10 +48,10 @@ def get_path() -> str:
 
 
 def get_headers_for_request() -> dict[str, str]:
-    st_user_agent: str = ("Mozilla/5.0 (Windows NT 10.0; " +
-                          "Win64; x64) AppleWebKit/537.36 " +
-                          "(KHTML, like Gecko) ") + \
-                         "Chrome/132.0.0.0 Safari/537.36"
+    st_user_agent: str = ('Mozilla/5.0 (Windows NT 10.0;'
+                          'Win64; x64) AppleWebKit/537.36'
+                          '(KHTML, like Gecko) ') + \
+                         'Chrome/132.0.0.0 Safari/537.36'
     st_accept: str = "text/html"
 
     headers: dict[str, str] = {
@@ -70,7 +70,7 @@ def get_html_with_vacancies(response: requests.Response) -> ResultSet[PageElemen
 
 def write_status_indicator(s: str) -> None:
     with open(path_for_status_indicator(), mode='w+', encoding='utf-8') as file:
-        file.write(f'{s[1:-1]}')
+        file.write(f'{s.strip()}')
         logging.info(f'Записали вакансию в file в dir: tg_bot')
         sys.exit()
 
